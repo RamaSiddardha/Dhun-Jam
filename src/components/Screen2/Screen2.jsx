@@ -5,12 +5,17 @@ import styles from "./Screen2.module.css";
 import { BeatLoader, RingLoader } from "react-spinners";
 import Graph from "../graph/graph";
 import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
 
-export default function Screen2({ adminId }) {
+export default function Screen2({}) {
   const [adminData, setAdminData] = useState();
   const [loading, setLoading] = useState(true);
   const [buttonLoad, setButtonLoad] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  const params = useParams();
+
+  console.log(params);
 
   useEffect(() => {
     if (adminData) {
@@ -31,7 +36,7 @@ export default function Screen2({ adminId }) {
   useEffect(() => {
     const myFun = async () => {
       const fetching = await fetch(
-        `https://stg.dhunjam.in/account/admin/${adminId}`
+        `https://stg.dhunjam.in/account/admin/${params.adminId}`
       );
       const result = await fetching.json();
 
@@ -48,7 +53,7 @@ export default function Screen2({ adminId }) {
 
   const reFetch = async () => {
     const fetching = await fetch(
-      `https://stg.dhunjam.in/account/admin/${adminId}`
+      `https://stg.dhunjam.in/account/admin/${params.adminId}`
     );
     const result = await fetching.json();
 
@@ -68,7 +73,7 @@ export default function Screen2({ adminId }) {
     }
     setButtonLoad(true);
     const fetching = await fetch(
-      `https://stg.dhunjam.in/account/admin/${adminId}`,
+      `https://stg.dhunjam.in/account/admin/${params.adminId}`,
       {
         method: "PUT",
         headers: {
@@ -88,7 +93,7 @@ export default function Screen2({ adminId }) {
   return (
     <>
       <div className={styles.screenContainer}>
-        {loading ? (
+        {!adminData ? (
           <RingLoader color="#36d7b7" />
         ) : (
           <>

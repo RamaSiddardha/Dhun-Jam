@@ -15,7 +15,10 @@ const Graph = ({ graphData }) => {
         <div
           key={index}
           className={styles.bar}
-          style={{ height: `${height}px` }}
+          style={{
+            height: `${height}px`,
+            transition: "height 0.5s ease-in-out",
+          }}
         ></div>
       ))}
     </div>

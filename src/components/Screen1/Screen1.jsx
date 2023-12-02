@@ -4,10 +4,14 @@ import React, { useRef, useState } from "react";
 import styles from "./Screen1.module.css";
 import { BeatLoader } from "react-spinners";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-export default function Screen1({ setIsLogged, setAdminId }) {
+export default function Screen1({ setIsLogged }) {
   const [isLoading, setIsLoading] = useState();
 
+  const navigate = useNavigate();
+  localStorage.clear("adminId");
+  setIsLogged(false);
   const userNameRef = useRef();
   const passwordRef = useRef();
 
@@ -29,13 +33,12 @@ export default function Screen1({ setIsLogged, setAdminId }) {
     });
     const result = await fetching.json();
     if (result.data) {
-      setIsLoading(false);
-      setIsLogged(true);
-      setAdminId(result.data.id);
-      console.log(result.data);
+      setIsLogged(result.data.id);
+      localStorage.setItem("adminId", result.data.id);
+      navigate("/admin/" + result.data.id);
       setTimeout(() => {
         toast.success("Successfully Logged In");
-      }, 1000);
+      }, 500);
     } else {
       setIsLoading(false);
       toast.error("Invalid Username or Password");
