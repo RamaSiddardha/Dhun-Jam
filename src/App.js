@@ -35,11 +35,6 @@ export default function App() {
   return (
     <>
       <RouterProvider router={router} />
-      {/* {isLogged ? (
-        <Screen2 adminId={adminId} />
-      ) : (
-        <Screen1 setAdminId={setAdminId} setIsLogged={setIsLogged} />
-      )}*/}
       <Toaster position="top-right" reverseOrder={false} />
     </>
   );
